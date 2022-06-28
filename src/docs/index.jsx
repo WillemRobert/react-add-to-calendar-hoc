@@ -134,7 +134,7 @@ function Demo() {
         event={event}
       />
       <CodeSnippet>
-      {`
+        {`
   const AddToCalendarDropdown = AddToCalendarHOC(Button, Dropdown);
   ...
   <AddToCalendarDropdown
@@ -157,6 +157,7 @@ function Demo() {
           ...event,
           description: 'Description of event. <br>Going to have a lot of fun doing things that we scheduled ahead of time.'
         }}
+        showIcons={true}
       />
       <CodeSnippet>
         {`
@@ -179,9 +180,10 @@ function Demo() {
           className: linkStyles,
         }}
         event={event}
+        showIcons={true}
       />
       <CodeSnippet>
-      {`
+        {`
   const AddToCalendarModal = AddToCalendarHOC(Button, CalendarModal);
   ...
   <AddToCalendarModal
@@ -202,9 +204,10 @@ function Demo() {
           className: linkStyles,
         }}
         event={event}
+        showIcons={true}
       />
       <CodeSnippet>
-      {`
+        {`
   const AddToCalendarModal = AddToCalendarHOC(Button, CalendarModal);
   ...
   <AddToCalendarModal
@@ -226,9 +229,10 @@ function Demo() {
         }}
         event={event}
         items={[SHARE_SITES.GOOGLE, SHARE_SITES.ICAL]}
+        showIcons={true}
       />
       <CodeSnippet>
-      {`
+        {`
   const AddToCalendarModal = AddToCalendarHOC(Button, CalendarModal);
   ...
   <AddToCalendarModal
@@ -250,9 +254,10 @@ function Demo() {
         }}
         event={event}
         filename="SuperFunEvent"
+        showIcons={true}
       />
       <CodeSnippet>
-      {`
+        {`
   const AddToCalendarModal = AddToCalendarHOC(Button, CalendarModal);
   ...
   <AddToCalendarModal
@@ -275,9 +280,10 @@ function Demo() {
         }}
         event={event}
         items={isiOS ? [SHARE_SITES.GOOGLE, SHARE_SITES.ICAL, SHARE_SITES.YAHOO] : undefined}
+        showIcons={true}
       />
       <CodeSnippet>
-      {`
+        {`
   const AddToCalendarModal = AddToCalendarHOC(Button, CalendarModal);
   const isiOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
   ...
@@ -292,7 +298,7 @@ function Demo() {
       `}
       </CodeSnippet>
 
-    <h2 className={subTitleStyles}>Handle Timezones</h2>
+      <h2 className={subTitleStyles}>Handle Timezones</h2>
       <p className={paragraphStyles}>To support events in a specific timezone you have to do a couple of things. First, pass in an additional property, <span className={highlightText}>timezone</span>. The value of this should be a valid TZ environment variable (<a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones" target="_blank" rel="noopener noreferrer">See here</a> for a list).</p>
       <p className={paragraphStyles}>You should also pass the value of <span className={highlightText}>startDatetime</span> and <span className={highlightText}>endDatetime</span> as local values and not UTC. In other words, if you want to create an event at 11am EST you should pass in a time value of 11am, not 7am UTC (EST has -04:00 offset). You can do this by formatting the date as <span className={highlightText}>YYYYMMDDTHHmmss</span> - without the Z property.</p>
       <p className={paragraphStyles}>Doing this will result in two things -- regardless of the timezone of your users, the event will always be created at the correct time for the timezone set. Secondly, the event will now include timezone information, i.e. it will say Eastern Time.</p>
@@ -302,9 +308,10 @@ function Demo() {
           className: linkStyles,
         }}
         event={eventInDifferentTimezone}
+        showIcons={true}
       />
       <CodeSnippet>
-      {`
+        {`
   const AddToCalendarModal = AddToCalendarHOC(Button, CalendarModal);
   const eventInDifferentTimezone = {
     ...event,
@@ -324,7 +331,7 @@ function Demo() {
       `}
       </CodeSnippet>
 
-    <h2 className={subTitleStyles}>Use Moment Alternative</h2>
+      <h2 className={subTitleStyles}>Use Moment Alternative</h2>
       <p className={paragraphStyles}>Moment is known to be a MASSIVE library. v2.22.2 is 64.2kb minified + gzipped and moment-timezone v0.5.21 is 89.8kb minified + gzipped. There are plenty of other date time libraries for JS that are way smaller. Using one of these helps you avoid overly bloating your application and sending too many vendor files to the client. One great option is Luxon. Luxon v.1.4.4 is 16.9kb minified + gzipped.</p>
       <p className={paragraphStyles}>This example shows how to use the Luxon library (instead of Moment) to construct <span className={highlightText}>startDatetime</span> and <span className={highlightText}>endDatetime</span></p>
       <AddToCalendarModal
@@ -333,9 +340,10 @@ function Demo() {
           className: linkStyles,
         }}
         event={luxonEvent}
+        showIcons={true}
       />
       <CodeSnippet>
-      {`
+        {`
   const AddToCalendarModal = AddToCalendarHOC(Button, CalendarModal);
   const startTime = DateTime.fromObject({ year: 2018, month: 10, day: 25, hour: 12 });
   const endTime = startTime.plus({ hours: 2 });

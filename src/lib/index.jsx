@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { SHARE_SITES } from './enums';
 import { buildShareUrl, isInternetExplorer } from './utils';
+var _enums = require("./enums");
 
 export { SHARE_SITES };
 export default function AddToCalendar(WrappedButton, WrappedDropdown) {
@@ -29,6 +30,7 @@ export default function AddToCalendar(WrappedButton, WrappedDropdown) {
         )
       ),
       linkProps: PropTypes.shape(),
+      showIcons: PropTypes.bool
     };
 
     static defaultProps = {
@@ -39,6 +41,7 @@ export default function AddToCalendar(WrappedButton, WrappedDropdown) {
       filename: 'download',
       items: Object.keys(SHARE_SITES).map(itm => SHARE_SITES[itm]),
       linkProps: {},
+      showIcons: false
     };
 
     state = {
@@ -72,8 +75,23 @@ export default function AddToCalendar(WrappedButton, WrappedDropdown) {
       this.setState(prevState => ({ dropdownOpen: !prevState.dropdownOpen }));
     };
 
+    getLinkImageClassName = (sharedSite) => {
+      switch (sharedSite) {
+        case _enums.SHARE_SITES.GOOGLE:
+          return "google_link";
+        case _enums.SHARE_SITES.ICAL:
+          return "ical_link";
+        case _enums.SHARE_SITES.OUTLOOK:
+          return "outlook_link";
+        case _enums.SHARE_SITES.YAHOO:
+          return "yahoo_link";
+        default:
+          return "unknown_link";
+      }
+    };
+
     render() {
-      const { buttonProps, buttonText, className, dropdownProps, event, items, linkProps } = this.props;
+      const { buttonProps, buttonText, className, dropdownProps, event, items, linkProps, showIcons } = this.props;
 
       return (
         <div className={className}>
@@ -84,23 +102,26 @@ export default function AddToCalendar(WrappedButton, WrappedDropdown) {
             {buttonText}
           </WrappedButton>
           {this.state.dropdownOpen && (
-              <WrappedDropdown
-                {...dropdownProps}
-                isOpen={this.state.dropdownOpen}
-                onRequestClose={this.handleDropdownToggle}
-              >
-                {items.map(item => (
-                  <a
-                    {...linkProps}
-                    key={item}
-                    onClick={this.handleCalendarButtonClick}
-                    href={buildShareUrl(event, item)}
-                  >
-                    {item}
-                  </a>
-                ))}
-              </WrappedDropdown>
-            )}
+            <WrappedDropdown
+              {...dropdownProps}
+              isOpen={this.state.dropdownOpen}
+              onRequestClose={this.handleDropdownToggle}
+            >
+              {items.map(item => (
+                <a
+                  {...linkProps}
+                  key={item}
+                  onClick={this.handleCalendarButtonClick}
+                  href={buildShareUrl(event, item)}
+                >
+                  {showIcons &&
+                    <i className={this.getLinkImageClassName(item)}></i>
+                  }
+                  {item}
+                </a>
+              ))}
+            </WrappedDropdown>
+          )}
         </div>
       );
     }
